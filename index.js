@@ -1,9 +1,15 @@
 const express = require('express');
-const app = express();
 const routes = require('./routes');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const dbConfig = require('./config/db');
+const cors = require('cors');
+
+//inicializando nuestra aplicación de express
+const app = express();
+
+//usando cors para peticiones de origen cruzado para recursos compartidos
+app.use(cors());
 
 app.use(express.json())
 
