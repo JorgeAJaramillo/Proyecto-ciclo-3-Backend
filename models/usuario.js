@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const UsuarioSchema = Schema({
     cedula: Number,
-    name: String,
-    state: String,
+    nombre: String,
+    estado: String,
     rol: String,
 
 })

@@ -1,10 +1,10 @@
-UsuarioSchema = require('../models/usuario')
+const UsuarioSchema = require('../models/usuario')
 
 
 const getUsuario = async (req, res) => {
-    if (typeof req.body != 'undefined') {
+    if (req.params.id != 'undefined') {
         try {
-            let usuario = await UsuarioSchema.findById(req.body.id);
+            let usuario = await UsuarioSchema.findById(req.params.id);
             res.json({ usuario });
         }
         catch (err) {
@@ -41,15 +41,17 @@ const createUsuario = async (req, res) => {
 }
 
 const updateUsuario = async (req, res) => {
+    
     if (typeof req.body != 'undefined') {
         try {
             await UsuarioSchema.findOneAndUpdate(
-                { _id: req.body.id },
+                { _id: req.params.id },
                 {
+                    id: req.params.id,
                 cedula: req.body.cedula,
-                name: req.body.nombre,
-                state: req.body.estado,
-                rol: req.body.rol
+                rol: req.body.rol,
+                nombre: req.body.nombre,
+                estado: req.body.estado
                 }
             );
             res.json({ msg: 'Se ha actualizado el usuario ' + req.body.id })
@@ -64,18 +66,29 @@ const updateUsuario = async (req, res) => {
 
 
 const deleteUsuario = async (req, res) => {
-    if (typeof req.body != 'undefined') {
+    if (req.params.id != 'undefined') {
         try {
-            await UsuarioSchema.findOneAndRemove( {_id: req.body.id} );
-            res.json({ msg: 'Se ha eliminado el usuario ' + req.body.id });
+            let result = await UsuarioSchema.findByIdAndRemove(req.params.id);
+            res.status(200).json({ data: result });
         }
         catch (err) {
-            console.log(err);
+            res.status(404).json({
+                error: {
+                    code: 404,
+                    message: "Usuario no encontrado"
+                }
+            })
         }
     } else {
-        res.json({ msg: "No se puede eliminar el usuario sin el id" })
+        res.status(404).json({
+            error: {
+                code: 404,
+                message: "ID not found"
+            }
+        })
     }
 }
+module.exports.getUsuario = getUsuario;
 module.exports.getUsuarios = getUsuarios;
 module.exports.createUsuario = createUsuario;
 module.exports.updateUsuario = updateUsuario;

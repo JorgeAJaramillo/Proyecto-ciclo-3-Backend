@@ -5,7 +5,7 @@ const getProducto = async (req, res) => {
     if (req.params.id != 'undefined') {
         try {
             let producto = await ProductoSchema.findById(req.params.id);
-            res.status(200).json({ data: producto });
+            res.status(200).json({ producto });
         }
         catch (err) {
             res.status(404).json({
@@ -28,7 +28,7 @@ const getProducto = async (req, res) => {
 const getProductos = async (req, res) => {
     try {
         let productos = await ProductoSchema.find();
-        res.status(200).json({ data: productos });
+        res.status(200).json({ productos });
     }
     catch (err) {
         res.status(404).json({
