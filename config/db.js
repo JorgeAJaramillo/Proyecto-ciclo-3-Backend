@@ -1,3 +1,7 @@
+require('dotenv').config();
+var dbUser = process.env.DB_USER;
+var dbPassword = process.env.DB_PASSWORD;
+var dbHost = process.env.DB_HOST;
 module.exports = {
-    dbStringConnect:"mongodb+srv://los-sprinters-2021:sprinters2021@cluster0.ifzff.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    urlDatabase: `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}`
 }
