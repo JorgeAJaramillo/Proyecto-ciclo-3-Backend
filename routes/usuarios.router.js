@@ -3,7 +3,7 @@ const router = Router();
 const { usuariosController } = require('../controllers');
 const { body } = require('express-validator');
 
-router.get('/:id', usuariosController.getUsuarios);
+router.get('/:id', usuariosController.getUsuario);
 
 
 router.get('/', usuariosController.getUsuarios);

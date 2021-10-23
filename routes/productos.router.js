@@ -3,7 +3,7 @@ const router = Router();
 const { productosController } = require('../controllers');
 const { body } = require('express-validator');
 
-router.get('/:id', productosController.getProductos);
+router.get('/:id', productosController.getProducto);
 
 
 router.get('/', productosController.getProductos);

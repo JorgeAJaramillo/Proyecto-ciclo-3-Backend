@@ -2,9 +2,9 @@ const UsuarioSchema = require('../models/usuario')
 
 
 const getUsuario = async (req, res) => {
-    if (typeof req.body != 'undefined') {
+    if (req.params.id != 'undefined') {
         try {
-            let usuario = await UsuarioSchema.findById(req.body.id);
+            let usuario = await UsuarioSchema.findById(req.params.id);
             res.json({ usuario });
         }
         catch (err) {
@@ -41,11 +41,13 @@ const createUsuario = async (req, res) => {
 }
 
 const updateUsuario = async (req, res) => {
+    
     if (typeof req.body != 'undefined') {
         try {
             await UsuarioSchema.findOneAndUpdate(
-                { _id: req.body.id },
+                { _id: req.params.id },
                 {
+                    id: req.params.id,
                 cedula: req.body.cedula,
                 rol: req.body.rol,
                 nombre: req.body.nombre,
@@ -86,6 +88,7 @@ const deleteUsuario = async (req, res) => {
         })
     }
 }
+module.exports.getUsuario = getUsuario;
 module.exports.getUsuarios = getUsuarios;
 module.exports.createUsuario = createUsuario;
 module.exports.updateUsuario = updateUsuario;
